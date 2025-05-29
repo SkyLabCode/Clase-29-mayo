@@ -1,0 +1,10 @@
+<div class="task">
+    <div class="task-header">
+        <span>{{task.title}}</span>
+        <button class="btn-delete" type="button">🗑️</button>
+    </div>
+    <div class="task-body">
+        <p class="description">{{task.description}}</p>
+        <p class="date">{{task.datetime | date:'dd/MM/yyyy'}}</p>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="board" cdkDropListGroup>
+    <div class="column" *ngFor="let status of statusList">
+        <div class="header-column">
+            <h3>{{status}}</h3>
+            <button *ngIf="status === 'nueva'" (click)="openModal()">+</button>
+        </div>
+
+        <!-- Mostramos las diferentes tareas -->
+
+        <div class="tasks-container" cdkDropList>
+
+            <div *ngFor="let task of getTasksByStatus(status)" cdkDrag>
+                <!-- mostramos la tarea -->
+                <app-task-card [task]="task" />
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Modal del formulario -->
+    <div *ngIf="showModal" class="modal-backdrop">
+        <div class="modal">
+            <h4>Nueva tarea</h4>
+            <label for="title">Título</label>
+            <input type="text" name="title" [(ngModel)]="title" />
+            <label for="description">Descripción</label>
+            <textarea name="description" [(ngModel)]="description" rows="5"></textarea>
+            <div class="modal-buttons">
+                <button (click)="saveTask()">Guardar tarea</button>
+                <button (click)="closeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>

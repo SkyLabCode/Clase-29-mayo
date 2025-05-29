@@ -1,0 +1,36 @@
+.task{
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.task-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-header span{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.task:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.task-header button{
+    border-radius: 8px;
+    background-color: rgb(255, 208, 208);
+    border-style: none;
+    width: 40px;
+    height: 30px;
+}
+
+.task-header button:hover{
+    background-color: red;
+    cursor: pointer;
+}
