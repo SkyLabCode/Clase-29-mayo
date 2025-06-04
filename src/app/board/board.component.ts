@@ -16,24 +16,25 @@ import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 })
 export class BoardComponent {
 
-  constructor(private taskService: TaskService){}
+  constructor(private taskService: TaskService) { }
 
   tasks: Task[] = [];
   showModal: boolean = false;
   title: string = '';
   description: string = '';
-  statusList: Task['status'][] = ['nueva', 'en proceso', 'completada'];
+  statusList: Task['status'][] = ['nueva', 'en_proceso', 'completada'];
 
 
-  ngOnInit(){
+
+  ngOnInit() {
     this.getTasks();
   }
 
   //Función para obtener los datos del formulario
   //y pasárselos al task.service para enviárselos
   //a firebase
-  async saveTask(){
-    if(this.title === '' || this.description === ''){
+  async saveTask() {
+    if (this.title === '' || this.description === '') {
       alert('No pueden haber campos vacíos!');
       return;
     }
@@ -51,45 +52,48 @@ export class BoardComponent {
 
   }
 
-  async getTasks(){
-    try{
+  async getTasks() {
+    try {
       //Obtenemos las tareas:
       this.tasks = await this.taskService.loadTasks();
       console.log(this.tasks);
-    }catch(error: any){
+    } catch (error: any) {
       console.error('Error al obtener las tareas: ' + error);
     }
   }
 
   //Función para filtrar las tareas según su status:
-  getTasksByStatus(status: Task['status']){
-    //Me devuelve la tarea sólo en el caso que coincidan los status
+  getTasksByStatus(status: Task['status']) {
     return this.tasks.filter(task => task.status === status);
   }
 
-  openModal(){
+
+  openModal() {
     this.title = '';
     this.description = '';
     this.showModal = true;
   }
 
-  closeModal(){
+  closeModal() {
     this.showModal = false;
   }
 
-  async drop(event: CdkDragDrop<Task[]>, newStatus: Task['status']){
 
-    //Comprobamos la columna donde inicialmente esta la tarea
-    const task = event.previousContainer.data[event.previousIndex]
-    //Si hemos movido la tarea a una nueva columna, modificamos el status
-    if(task.status !== newStatus){
-      //Actualizamos el status de forma local (no en la bdd)
+  async drop(event: CdkDragDrop<Task[]>, newStatus: Task['status']) {
+    const task = event.previousContainer.data[event.previousIndex];
+
+    if (task.status !== newStatus) {
+      // 1. Actualiza el estado local inmediatamente
       task.status = newStatus;
 
-      //Actualizamos la tarea en la bdd
-      this.taskService.updateTaskStatus(task.id!, newStatus)
+      // 3. Actualiza en Firestore (sin esperar el resultado para redibujar)
+      this.taskService.updateTaskStatus(task.id!, newStatus);
     }
   }
 
 
+
+
 }
+
+

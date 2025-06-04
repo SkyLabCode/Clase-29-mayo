@@ -1,13 +1,14 @@
 <div class="board" cdkDropListGroup>
     <div class="column" *ngFor="let status of statusList">
+
         <div class="header-column">
-            <h3>{{status}}</h3>
+            <h3> {{ status }}</h3>
             <button *ngIf="status === 'nueva'" (click)="openModal()">+</button>
         </div>
 
         <!-- Mostramos las diferentes tareas -->
 
-        <div class="tasks-container" cdkDropList>
+        <div class="task-container" cdkDropList>
 
             <div *ngFor="let task of getTasksByStatus(status)" cdkDrag>
                 <!-- mostramos la tarea -->

@@ -3,5 +3,5 @@ export interface Task {
     title: string;
     description: string;
     datetime: string;
-    status: 'nueva' | 'en proceso' | 'completada';
+    status: 'nueva' | 'en_proceso' | 'completada';
 }

@@ -12,3 +12,5 @@ import { CommonModule } from '@angular/common';
 export class TaskCardComponent {
   @Input() task!: Task;
 }
+
+
